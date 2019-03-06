@@ -819,9 +819,6 @@ def add_bot_ship(c):
 
 
 def shot(a, b):
-    print(a, b)
-    print(bot_grid[a][b])
-
     kill = 0
     ships_near_shot = 0
     if bot_grid[a][b] == "[B]":
@@ -845,7 +842,6 @@ def shot(a, b):
                 ships_near_shot += 1
         except IndexError:
             k = 0
-        print(ships_near_shot)
         if ships_near_shot == 1:
             try:
                 if bot_grid[a][b - 1] == "[B]" and bot_grid[a][b - 2] == "[B]" and bot_grid[a][b - 3] == "[B]":
@@ -2727,12 +2723,12 @@ def bot_shot():
                     except IndexError:
                         shot_offset = 1
             if hited == 1:
-                
+
 
 
         else:
-            player_grid[a][b] = "[0]" 
-            visible_player_grid[a][b] = "[0]" 
+            player_grid[a][b] = "[0]"
+            visible_player_grid[a][b] = "[0]"
             prev_shot_hited = 0
             print("               YOUR SHIPS")
             show_visible_player_grid()
@@ -3941,8 +3937,8 @@ def bot_shot():
                 prev_shot_hited = 1
                 print("Bot hit your ship! There are", 11 - killed, "ships left.")
         else:
-            player_grid[a][b] = "[0]" 
-            visible_player_grid[a][b] = "[0]" 
+            player_grid[a][b] = "[0]"
+            visible_player_grid[a][b] = "[0]"
             prev_shot_hited = 0
             print("               YOUR SHIPS")
             show_visible_player_grid()
@@ -4049,8 +4045,7 @@ while ship_quantity <= 9:
         print("Wrong answer! Try again!")
 '''
 print("               YOUR SHIPS")
-#show_visible_player_grid()
-show_bot_grid()
+show_visible_player_grid()
 print("             OPPONENT SHIPS")
 show_visible_bot_grid()
 print("Choose where do you want to make shot and print letter first and then number")
