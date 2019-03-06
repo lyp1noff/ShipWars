@@ -6,7 +6,7 @@ bot_grid = []
 visible_player_grid = []
 player_grid = []
 ABC = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", ""]
-abc = ["a", "b", "c", "d", "e", "f", "g", "h", "i" ,"j", ""]
+abc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", ""]
 killed = 1
 ship_quantity = 0
 ships = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
@@ -819,6 +819,9 @@ def add_bot_ship(c):
 
 
 def shot(a, b):
+    print(a, b)
+    print(bot_grid[a][b])
+
     kill = 0
     ships_near_shot = 0
     if bot_grid[a][b] == "[B]":
@@ -842,6 +845,7 @@ def shot(a, b):
                 ships_near_shot += 1
         except IndexError:
             k = 0
+        print(ships_near_shot)
         if ships_near_shot == 1:
             try:
                 if bot_grid[a][b - 1] == "[B]" and bot_grid[a][b - 2] == "[B]" and bot_grid[a][b - 3] == "[B]":
@@ -1151,7 +1155,7 @@ def shot(a, b):
                 k = 0
             try:
                 if bot_grid[a][b + 1] == "[B]" and bot_grid[a][b + 2] == "[B]" and bot_grid[a][b + 3] != "[B]":
-                    if visible_bot_grid[a][b + 2] == "[X]" and visible_bot_grid[a][b + 2] == "[X]":
+                    if visible_bot_grid[a][b + 1] == "[X]" and visible_bot_grid[a][b + 2] == "[X]":
                         if visible_bot_grid[a][b] != "[X]":
                             kill = 1
                         else:
@@ -1731,7 +1735,8 @@ def shot(a, b):
                             k = 0
             except IndexError:
                 k = 0
-        if ships_near_shot == 2:
+        elif ships_near_shot == 2:
+
                 try:
                     if bot_grid[a - 1][b] == "[B]" and bot_grid[a + 1][b] == "[B]"\
                             and visible_bot_grid[a - 1][b] == "[X]" and visible_bot_grid[a + 1][b] == "[X]":
@@ -1963,6 +1968,7 @@ def shot(a, b):
                 except IndexError:
                     k = 0
         else:
+            print("else")
             if visible_bot_grid[a][b] != "[X]":
                 kill = 1
             else:
@@ -3993,12 +3999,12 @@ def show_player_grid():
     print()
 
 
-for h in range(10):
+for h in range(11):
     visible_bot_grid.append([h])
     for x in range(10):
         visible_bot_grid[h].append("[ ]")
 
-for i in range(10):
+for i in range(11):
     bot_grid.append([i])
     for x in range(10):
         bot_grid[i].append("[ ]")
@@ -4043,7 +4049,8 @@ while ship_quantity <= 9:
         print("Wrong answer! Try again!")
 '''
 print("               YOUR SHIPS")
-show_visible_player_grid()
+#show_visible_player_grid()
+show_bot_grid()
 print("             OPPONENT SHIPS")
 show_visible_bot_grid()
 print("Choose where do you want to make shot and print letter first and then number")
