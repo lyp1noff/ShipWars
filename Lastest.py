@@ -2654,7 +2654,7 @@ def put_ship(a, b, c):
 
 
 def bot_shot():
-    global prev_shot_hited, prev_a, prev_b
+    global prev_shot_hited, prev_a, prev_b, finding_part_of_ship
     kill = 0
     ships_near_shot = 0
     shot_offset = 1
@@ -2669,13 +2669,1014 @@ def bot_shot():
                 global a, b
                 a = random.randint(1, 10)
                 b = random.randint(0, 9)
-                if visible_player_grid[a][b] != "[X]":
-                    new_num = 1
-                else:
+                if visible_player_grid[a][b] == "[X]":
                     new_num = 0
+                else:
+                    new_num = 1
             if player_grid[a][b] == "[B]":
+                visible_player_grid = "[X]"
+                if player_grid[a + 1][b] == "[B]":
+                    ships_near_shot += 1
+                if player_grid[a - 1][b] == "[B]":
+                    ships_near_shot += 1
+                if player_grid[a][b + 1] == "[B]":
+                    ships_near_shot += 1
+                if player_grid[a][b - 1] == "[B]":
+                    ships_near_shot += 1
+                if ships_near_shot == 0:
+                    try:
+                        visible_player_grid[a + 1][b] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a - 1][b] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a][b + 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a][b - 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a - 1][b + 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a + 1][b - 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a - 1][b - 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    try:
+                        visible_player_grid[a + 1][b + 1] = "[0]"
+                    except IndexError:
+                        k = 0
+                    prev_shot_hited = 1
+                    finding_part_of_ship = 0
+                    visible_player_grid[a][b] = "[X]"
+                    print("               YOUR SHIPS")
+                    show_visible_player_grid()
+                    print("             OPPONENT SHIPS")
+                    show_visible_bot_grid()
+                elif ships_near_shot == 1:
+                    try:
+                        if player_grid[a][b - 1] == "[B]" and player_grid[a][b - 2] == "[B]" and player_grid[a][
+                            b - 3] == "[B]":
+                            if visible_player_grid[a][b - 1] == "[X]" and visible_player_grid[a][b - 2] == "[X]" and \
+                                    visible_player_grid[a][b - 3] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a + 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a - 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 3] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 3] == "[ ]":
+                                        visible_player_grid[a + 1][b - 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 3] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 3] == "[ ]":
+                                        visible_player_grid[a - 1][b - 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 4] == "[ ]" and visible_player_grid[a][b - 4] == "[ ]":
+                                        visible_player_grid[a][b - 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 4] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 4] == "[ ]":
+                                        visible_player_grid[a + 1][b - 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 4] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 4] == "[ ]":
+                                        visible_player_grid[a - 1][b - 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a][b - 1] == "[B]" and player_grid[a][b - 2] == "[B]" and player_grid[a][
+                            b - 3] != "[B]":
+                            if visible_player_grid[a][b - 1] == "[X]" and visible_player_grid[a][b - 2] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a + 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a - 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 3] == "[ ]" and visible_player_grid[a][b - 3] == "[ ]":
+                                        visible_player_grid[a][b - 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 3] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 3] == "[ ]":
+                                        visible_player_grid[a + 1][b - 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 3] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 3] == "[ ]":
+                                        visible_player_grid[a - 1][b - 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a][b - 1] == "[B]" and player_grid[a][b - 2] != "[B]":
+                            if visible_player_grid[a][b - 1] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 2] == "[ ]" and visible_player_grid[a][b - 2] == "[ ]":
+                                        visible_player_grid[a][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a - 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 2] == "[ ]":
+                                        visible_player_grid[a + 1][b - 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a][b + 1] == "[B]" and player_grid[a][b + 2] == "[B]" and player_grid[a][
+                            b + 3] == "[B]":
+                            if visible_player_grid[a][b + 1] == "[X]" and visible_player_grid[a][b + 2] == "[X]" and \
+                                    visible_player_grid[a][b + 3] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a - 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a + 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 3] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 3] == "[ ]":
+                                        visible_player_grid[a - 1][b + 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 3] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 3] == "[ ]":
+                                        visible_player_grid[a + 1][b + 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 4] == "[ ]" and visible_player_grid[a][b + 4] == "[ ]":
+                                        visible_player_grid[a][b + 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 4] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 4] == "[ ]":
+                                        visible_player_grid[a - 1][b + 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 4] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 4] == "[ ]":
+                                        visible_player_grid[a + 1][b + 4] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a][b + 1] == "[B]" and player_grid[a][b + 2] == "[B]" and player_grid[a][
+                            b + 3] != "[B]":
+                            if visible_player_grid[a][b + 1] == "[X]" and visible_player_grid[a][b + 2] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a + 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a - 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 3] == "[ ]" and visible_player_grid[a][b + 3] == "[ ]":
+                                        visible_player_grid[a][b + 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 3] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 3] == "[ ]":
+                                        visible_player_grid[a - 1][b + 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 3] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 3] == "[ ]":
+                                        visible_player_grid[a + 1][b + 3] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a][b + 1] == "[B]" and player_grid[a][b + 2] != "[B]":
+                            if visible_player_grid[a][b + 1] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 2] == "[ ]" and visible_player_grid[a][b + 2] == "[ ]":
+                                        visible_player_grid[a][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 2] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a + 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 2] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 2] == "[ ]":
+                                        visible_player_grid[a - 1][b + 2] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a + 1][b] == "[B]" and player_grid[a + 2][b] == "[B]" and player_grid[a + 3][
+                            b] == "[B]":
+                            if visible_player_grid[a + 1][b] == "[X]" and visible_player_grid[a + 2][b] == "[X]" and \
+                                    visible_player_grid[a + 3][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b - 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b + 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 3][b - 1] == "[ ]" and visible_player_grid[a + 3][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 3][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 3][b + 1] == "[ ]" and visible_player_grid[a + 3][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 3][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 4][b] == "[ ]" and visible_player_grid[a + 4][b] == "[ ]":
+                                        visible_player_grid[a + 4][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 4][b - 1] == "[ ]" and visible_player_grid[a + 4][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 4][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 4][b + 1] == "[ ]" and visible_player_grid[a + 4][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 4][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a + 1][b] == "[B]" and player_grid[a + 2][b] == "[B]" and player_grid[a + 3][
+                            b] != "[B]":
+                            if visible_player_grid[a + 1][b] == "[X]" and visible_player_grid[a + 2][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b + 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b - 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 3][b] == "[ ]" and visible_player_grid[a + 3][b] == "[ ]":
+                                        visible_player_grid[a + 3][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 3][b + 1] == "[ ]" and visible_player_grid[a + 3][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 3][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 3][b - 1] == "[ ]" and visible_player_grid[a + 3][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 3][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a + 1][b] == "[B]" and player_grid[a + 2][b] != "[B]":
+                            if visible_player_grid[a + 1][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b] == "[ ]" and visible_player_grid[a + 2][b] == "[ ]":
+                                        visible_player_grid[a + 2][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b + 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 2][b - 1] == "[ ]" and visible_player_grid[a + 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a - 1][b] == "[B]" and player_grid[a - 2][b] == "[B]" and player_grid[a - 3][
+                            b] == "[B]":
+                            if visible_player_grid[a - 1][b] == "[X]" and visible_player_grid[a - 2][b] == "[X]" and \
+                                    visible_player_grid[a - 3][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b - 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b + 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 3][b - 1] == "[ ]" and visible_player_grid[a - 3][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 3][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 3][b + 1] == "[ ]" and visible_player_grid[a - 3][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 3][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 4][b] == "[ ]" and visible_player_grid[a - 4][b] == "[ ]":
+                                        visible_player_grid[a - 4][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 4][b - 1] == "[ ]" and visible_player_grid[a - 4][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 4][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 4][b + 1] == "[ ]" and visible_player_grid[a - 4][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 4][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a - 1][b] == "[B]" and player_grid[a - 2][b] == "[B]" and player_grid[a - 3][
+                            b] != "[B]":
+                            if visible_player_grid[a - 1][b] == "[X]" and visible_player_grid[a - 2][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b - 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b + 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 3][b + 1] == "[ ]" and visible_player_grid[a - 3][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 3][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 3][b - 1] == "[ ]" and visible_player_grid[a - 3][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 3][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 3][b] == "[ ]" and visible_player_grid[a - 3][b] == "[ ]":
+                                        visible_player_grid[a - 3][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+                    try:
+                        if player_grid[a - 1][b] == "[B]" and player_grid[a - 2][b] != "[B]":
+                            if visible_player_grid[a - 1][b] == "[X]":
+                                try:
+                                    if player_grid[a + 1][b] == "[ ]" and visible_player_grid[a + 1][b] == "[ ]":
+                                        visible_player_grid[a + 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b + 1] == "[ ]" and visible_player_grid[a][b + 1] == "[ ]":
+                                        visible_player_grid[a][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b + 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a + 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b] == "[ ]" and visible_player_grid[a - 1][b] == "[ ]":
+                                        visible_player_grid[a - 1][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a][b - 1] == "[ ]" and visible_player_grid[a][b - 1] == "[ ]":
+                                        visible_player_grid[a][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b - 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 1][b + 1] == "[ ]" and visible_player_grid[a - 1][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 1][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a + 1][b - 1] == "[ ]" and visible_player_grid[a + 1][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a + 1][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b] == "[ ]" and visible_player_grid[a - 2][b] == "[ ]":
+                                        visible_player_grid[a - 2][b] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b - 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b - 1] == "[ ]":
+                                        visible_player_grid[a - 2][b - 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                                try:
+                                    if player_grid[a - 2][b + 1] == "[ ]" and visible_player_grid[a - 2][
+                                        b + 1] == "[ ]":
+                                        visible_player_grid[a - 2][b + 1] = "[0]"
+                                except IndexError:
+                                    k = 0
+                    except IndexError:
+                        k = 0
+
+
             else:
                 visible_player_grid = "[0]"
+                finding_part_of_ship = 0
                 prev_shot_hited = 0
 
 
