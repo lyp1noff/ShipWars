@@ -2658,22 +2658,25 @@ def bot_shot():
     kill = 0
     ships_near_shot = 0
     shot_offset = 1
+    new_num = 0
 
     if finding_part_of_ship == 1:
-        #
+        #  Even not started
+        print("not done(")
     else:
         if prev_shot_hited == 1:
-            #
+            # Even not started
+            print("not done(")
         else:
             while new_num == 0:
-                global a, b
+                global a, b, visible_player_grid
                 a = random.randint(1, 10)
                 b = random.randint(0, 9)
                 if visible_player_grid[a][b] == "[X]":
                     new_num = 0
                 else:
                     new_num = 1
-            if player_grid[a][b] == "[B]":
+            if player_grid[a][b] == "[B]": # finding_part_of_ship == 1 untill all pieces of ship will be destroyed
                 visible_player_grid = "[X]"
                 if player_grid[a + 1][b] == "[B]":
                     ships_near_shot += 1
@@ -2722,7 +2725,7 @@ def bot_shot():
                     print("               YOUR SHIPS")
                     show_visible_player_grid()
                     print("             OPPONENT SHIPS")
-                    show_visible_bot_grid()
+                    show_visible_bot_grid() #DONE
                 elif ships_near_shot == 1:
                     try:
                         if player_grid[a][b - 1] == "[B]" and player_grid[a][b - 2] == "[B]" and player_grid[a][
@@ -3782,7 +3785,7 @@ while ship_quantity <= 9:
         print("Wrong answer! Try again!")
 '''
 
-#TEST BUILD FOR BOT
+#TEST BUILD FOR BOT (Delete or commit 3785-3806 after uncommit 3759-3783 strings)
 offset = "y"
 put_ship(0, 1, 3)
 offset = "x"
@@ -3831,5 +3834,5 @@ while killed <= 10:
         print("             OPPONENT SHIPS")
         show_visible_bot_grid()
         print("Wrong answer! Try again!")
-    # bot_shot()
+    #bot_shot()
 print("You win!")
