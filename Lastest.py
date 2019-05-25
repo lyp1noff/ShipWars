@@ -2686,7 +2686,7 @@ def bot_shot():
                     ships_near_shot += 1
                 if player_grid[a][b - 1] == "[B]":
                     ships_near_shot += 1
-                if ships_near_shot == 0:
+                if ships_near_shot == 0: #Done
                     try:
                         visible_player_grid[a + 1][b] = "[0]"
                     except IndexError:
@@ -2725,7 +2725,7 @@ def bot_shot():
                     print("               YOUR SHIPS")
                     show_visible_player_grid()
                     print("             OPPONENT SHIPS")
-                    show_visible_bot_grid() #DONE
+                    show_visible_bot_grid()
                 elif ships_near_shot == 1:
                     try:
                         if player_grid[a][b - 1] == "[B]" and player_grid[a][b - 2] == "[B]" and player_grid[a][
